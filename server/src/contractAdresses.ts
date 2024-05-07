@@ -1,0 +1,1 @@
+export const NFT_MINT_CONTRACT_ADDRESS = 'TWFDLeemnRJXhTEkWyER7qdqxVhW1WRKSu'
