@@ -1,0 +1,40 @@
+query getCollections(
+    $pagination: Pagination,
+    $sort: CollectionSortBy,
+    $search: String,
+    $owners: [String],
+    $asset_owners: [String],
+    $asset_creators: [String],
+    $event_involved: [String],
+    $collection_types: [collectionListCollectionTypes]
+) {
+    collections(
+        pagination: $pagination,
+        sort: $sort,
+        search: $search,
+        owners: $owners,
+        asset_owners: $asset_owners,
+        asset_creators: $asset_creators,
+        event_involved: $event_involved,
+        collection_types: $collection_types
+    ) {
+        items {
+            name
+            image_url
+            contract_address
+            is_verified
+            owner_address
+            object_count
+            description
+            discord_link
+            twitter_link
+            website_link
+            external_url
+        }
+        pagination {
+            total
+            cursor
+            has_next
+        }
+    }
+}

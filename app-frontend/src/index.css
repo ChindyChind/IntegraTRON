@@ -1,0 +1,44 @@
+
+html, body, #app, .radix-themes {
+    width: 100%;
+    overflow: hidden;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+#root {
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+#renderCanvas {
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.assertCard {
+    position: relative;
+    background-color: var(--mantine-color-body);
+}
+
+.assertCardTitle {
+    display: block;
+    margin-top: var(--mantine-spacing-md);
+    margin-bottom: rem(5px);
+}
+
+.user_button {
+    display: block;
+    width: 100%;
+    padding: 20px;
+    color: light-dark(var(--mantine-color-black), var(--mantine-color-dark-0));
+
+    @mixin hover {
+        background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-8));
+    }
+}

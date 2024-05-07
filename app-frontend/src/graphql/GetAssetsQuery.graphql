@@ -1,0 +1,246 @@
+query getAssets(
+    $pagination: Pagination,
+    $sort: AssetSortBy,
+    $price: PriceRangeFilter,
+    $statuses: [AssetStatus],
+    $collections: [String],
+    $user_account: String,
+    $owners: [String],
+    $creators: [String],
+    $attributes: [AttributesFilter],
+    $search: String,
+    $categories: [String],
+    $currencies: [String],
+    $is_recommend: Boolean,
+    $collection_types: [assetListCollectionTypes]
+) {
+    assets(
+        sort: $sort
+        pagination: $pagination
+        price: $price
+        statuses: $statuses
+        collections: $collections
+        user_account: $user_account
+        owners: $owners
+        creators: $creators
+        attributes: $attributes
+        search: $search
+        categories: $categories
+        currencies: $currencies
+        is_recommend: $is_recommend
+        collection_types: $collection_types
+    ) {
+        items {
+            ...assetsFields
+        }
+        pagination {
+            ...paginationFields
+            total
+        }
+    }
+}
+
+
+fragment assetsFields on Token {
+    token_id
+    contract_address
+    image_url
+    animation_url
+    name
+    token_type
+    token_uri
+    trade_version
+    description
+    external_url
+    attributes {
+        display_type,
+        trait_type,
+        value
+    }
+    collection {
+        royalty
+        royalty_address
+        name
+        is_verified
+        contract_address
+        image_url
+        banner_image_url
+        description
+        discord_link
+        twitter_link
+        website_link
+        external_url
+        stat {
+            assets_total
+            owners_total
+            floor_price
+            volume_total
+            __typename
+        }
+        payment_tokens {
+            address
+            decimal
+            icon
+            symbol
+            __typename
+        }
+        __typename
+    }
+    asks_v2 {
+        ...asksFields
+        __typename
+    }
+    bids_v2 {
+        ...bidsFields
+        __typename
+    }
+    sales_v2 {
+        ...salesFields
+        __typename
+    }
+    asks_v3 {
+        ...orderItemFieldsV3
+        __typename
+    }
+    bids_v3 {
+        pay_price
+        pay_currency {
+            address
+            decimal
+            icon
+            symbol
+            __typename
+        }
+        __typename
+    }
+    sales_v3 {
+        last_sale_price
+        currency {
+            address
+            decimal
+            icon
+            symbol
+            __typename
+        }
+        __typename
+    }
+    owners {
+        owner {
+            profile {
+                account_address
+                user_name
+                profile_image_url
+            }
+            __typename
+        }
+        __typename
+    }
+    __typename
+}
+
+fragment paginationFields on PagingInfo {
+    cursor
+    has_next
+}
+
+fragment asksFields on NFTBestAsk {
+    bestAskCreatedDate
+    bestAskExpirationDate
+    bestAskListingDate
+    bestAskOrderQuantity
+    bestAskOrderString
+    bestAskOrderType
+    bestAskPrice
+    bestAskPriceBase
+    bestAskPriceCNY
+    bestAskPriceUSD
+    bestAskSaleKind
+    bestAskToken
+    bestAskTokenId
+    chain
+    chainId
+    contractAddress
+    currency {
+        address
+        decimal
+        icon
+        symbol
+    }
+}
+
+fragment bidsFields on NFTBestBid {
+    bestBidCreatedDate
+    bestBidListingDate
+    bestBidOrderQuantity
+    bestBidOrderString
+    bestBidPrice
+    bestBidPriceBase
+    bestBidPriceCNY
+    bestBidPriceUSD
+    bestBidToken
+    bestBidTokenId
+    chain
+    chainId
+    contractAddress
+    currency {
+        address
+        decimal
+        icon
+        symbol
+    }
+}
+
+fragment salesFields on NFTLastSale {
+    currency {
+        address
+        decimal
+        icon
+        symbol
+    }
+    lastSalePrice
+    lastSaleQuantity
+}
+
+fragment listOrderFieldsV3 on OrderItemV3 {
+    pay_price
+    pay_price_in_usd
+    end_time
+    close_time
+    order_kind
+    exchange_contract
+    pay_currency {
+        address
+        decimal
+        icon
+        symbol
+    }
+    maker
+    taker
+    taker_user {
+        profile {
+            account_address
+            user_name
+            profile_image_url
+        }
+    }
+    order_hash
+    maker_user {
+        profile {
+            account_address
+            user_name
+            profile_image_url
+        }
+    }
+}
+
+fragment orderItemFieldsV3 on OrderItemV3 {
+    ...listOrderFieldsV3
+    start_time
+    asset_type
+    asset_contract
+    asset_quantity
+    asset_token_id
+    pay_token
+    is_private
+    english_auction_reserve_price
+}

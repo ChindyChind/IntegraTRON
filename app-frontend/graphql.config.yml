@@ -1,0 +1,25 @@
+overwrite: true
+schema:
+  - 'https://api-gateway.apenft.io/graphql'
+documents:
+  - "./src/**/**/*.graphql"
+generates:
+  ./src/generated/queries.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-react-query'
+    config:
+      addInfiniteQuery: true
+      #      addSuspeneQuery: true,
+      #      reactQueryVersion: 5,
+      fetcher:
+        endpoint: 'https://api-gateway.apenft.io/graphql'
+        isReactHook: true
+        fetchParams: >
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "X-Chain-Name": "tron"
+            }
+          }

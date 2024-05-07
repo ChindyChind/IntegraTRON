@@ -1,0 +1,7 @@
+query GetAssetDetail($token_id: String, $collection: String) {
+    asset(token_id: $token_id, collection: $collection) {
+        owners {
+            owner_address
+        }
+    }
+}
